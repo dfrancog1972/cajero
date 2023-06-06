@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=no, initial-scale=1.0, maximum-scale=1.0, maximum-scale=1.0">
+    <title>Principal</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Bienvenido Cajero Automatico de DFG</h1>
+        </div>
+    </header>
+    <!-- uso contenedroes para aplicar la grid de bootstrap en 4 diferentes medidas para las columnas-->
+    <div class="container">
+        <div class="row">
+            <p id="test"></p>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <label for="">Tu Saldo es: </label>
+                <input type="text" name="Saldo" id="saldo">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <label for="">Puedes retirar hasta:</label>
+                <input type="text" name="maximoRetiro" id="Retiro" value="9000">
+            </div>
+            <div class="color1 col-xs-12 col-sm-6 col-md-3">
+                <label for="">Tengo Billetes desde:</label>
+                <input type="text" name="billetesMaximo" id="Billetes" value="100">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-lg" data-bs-toggle="button">Saldo</button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-lg" data-bs-toggle="button">Deposito</button>
+            </div>
+            <div class="col-md-3">
+                <form action="">
+                    <h2>Retirar</h2>
+                    <input type="text" name="" id="Cant" placeholder="$">
+                </form>
+                    <input type="button" value="Retiro de cuenta" id="bt1" onclick="retiroCta()">        
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="row">
+            <div class="col-md-3">
+                <button class="btn btn-warning btn-lg" data-bs-toggle="button">Salir</button>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            
+        </div>
+    </footer>
+    
+    <script src="js/bootstrap.bundle.min.js">
+        
+    </script>
+    <script>
+        (function saludo(){
+            var userdata=localStorage.getItem("userdata");
+            var datos = JSON.parse(userdata);
+            var str = 'Hola ' + datos.nombre + ' bienvenido, que operacion quieres realizar';
+            document.getElementById('test').innerHTML=str;
+            document.getElementById('saldo').value=datos.saldo;
+        })()
+
+        
+        
+        function retiroCta(){            
+            var control = parseInt(document.getElementById('Cant').value);
+            var cantidadTotal=parseInt(document.getElementById('Cant').value);
+            var cantidad=parseInt(document.getElementById('saldo').value);        
+
+            /* Tres condiciones para retirar, primero no debe pasar de 9,000 y segundo debe ser multiplo de $100, el retiro no debe ser superior al saldo */
+            if(control<=cantidad){
+                if (cantidadTotal <= 9000){
+                    if ( (control%100) == 0 ){               
+                        document.getElementById('saldo').value=(cantidad-cantidadTotal);
+                    }else alert("No se puede entregar esa cantidad, debe ser multiplo de $100.00");
+                }else alert('sobre pasa la cantidad maxima a retirar')    
+            }else alert('Quieres retirar mas dinero de lo que tienes en tu cuanta')
+            
+
+                
+        }
+        
+    </script>
+
+</body>
+</html>

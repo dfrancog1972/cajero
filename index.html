@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=no, initial-scale=1.0, maximum-scale=1.0, maximum-scale=1.0">
+    <title>Proyecto Cajero Automatico</title>    
+    <title>Principal</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <!--Formulario para autenticar el acceso a las cuentas-->
+    <form action="">
+        <h1>Acceso</h1>
+        <label for="">Usuario</label>
+        <input type="text" name="u" id="">
+        <label for="">password</label>
+        <input type="password" name="c" id="">
+        <!--se invoca a la funcion login y se le pasa los parametros del form-->
+        <input type="button" value="Ingresar" onclick="login(this.form)">
+    </form>
+    <!--scrip de js para validar usuario y contraseña, solo de forma interna, es decir no hace consulta a una bd-->
+    <!-- se verifican los parametros de los name u y c que corresponden al usuario y contraseña del form-->
+    <!-- esta parte se puede mejorar si la informacion se consulta de una bd-->
+    <script>        
+        function login(form){
+            var cuentas=[
+                {nombre:"Mali", saldo:200, clave:1234},
+                {nombre:"Gera", saldo:290, clave:4321},
+                {nombre:"Maui", saldo:67, clave:3412}
+            ];
+            // for(indice in cuentas){ 
+            //     console.log(indice);
+            //     if(form.u.value==cuentas[indice].nombre){
+            //         if(form.c.value==cuentas[indice].clave){
+            //             location="menuprincipal.html";
+            //         }else{
+            //             alert("error de contraseña")
+            //         }
+            //     }else{
+            //         alert("error de usuario");
+            //     }            
+            // }
+
+            //uso una funcion de js para la busqueda del elemento en el arreglo
+            //la busqueda la hago con logica negativa si no encuentro el usuario mando la alerta
+
+            var cuenta = cuentas.find(element => element.nombre == form.u.value)
+            if (cuenta == undefined){
+                alert('No se encuentra el usuario');
+                return;
+            }
+
+            // si se encuentra el usuario se compara la clave si no se encuentra se manda la alerta
+            // con esto evito el tener if anidados
+            if(form.c.value!=cuenta.clave){
+                alert('Contraseña Incorrecta');
+                return;                
+            }
+
+            // si nada falla se abre la pagina de operaciones
+            //guardo los elementos de los usuarios en un objeto para leerlo en la otra pagina
+            localStorage.clear();
+            localStorage.setItem("userdata", JSON.stringify(cuenta));
+            location="menuprincipal.html";
+
+
+        }
+    </script>
+    
+</body>
+</html>
