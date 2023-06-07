@@ -1,9 +1,16 @@
 header{
     background: #3a7bbd;
     color: #fff;
+    max-height: 250px;
+    min-height: 100px;
 }
-.main{
-    background: #f2f2f2;
+main{
+    background: #fff;
+    margin-top: 100px;
+}
+article{
+    background: #fff;
+    margin-top: 100px;
 }
 .color1{
     background: #233f5b;
@@ -16,6 +23,11 @@ aside{
 footer{
     background: #3a7bbd;
     color: #fff;
+    margin-top:50px;
+    width:100%;
+    height:100px;
     position: fixed;
-    border-top: 1px;    
+    bottom: 0;
+    border-top: 1px;   
 }
+
