@@ -16,49 +16,41 @@
         </div>
     </header>
     <!-- uso contenedroes para aplicar la grid de bootstrap en 4 diferentes medidas para las columnas-->
-    <div class="container">
-        <div class="row">
-            <h2 id="test"></h2>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-4">              
-                <h3 id="saldo"></h3>
+    <main>
+        <div class="container">
+            <div class="row">
+                <h2 id="test"></h2>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4">
-                <h3 id="retiro"></h3>
+            <br><br><br><br>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4">              
+                    <h3 id="saldo"></h3>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                    <h3 id="retiro"></h3>
+                </div>
+                <div class="color1 col-xs-12 col-sm-6 col-md-4">
+                    <h3>Tengo billetes de $20.00</h3>
+                </div>
             </div>
-            <div class="color1 col-xs-12 col-sm-6 col-md-4">
-                <h3>Tengo billetes de $20.00</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <form action="">
-                    <h2>Retirar</h2>
-                    <input type="text" name="" id="Cant" placeholder="$">
-                </form>
-                    <input type="button" class="btn btn-primary btn-lg" value="Retiro de cuenta" id="bt1" onclick="retiroCta()">        
-            </div>
-        </div>
-        
-        <!--<div class="row">
-            <div class="col-md-3">
-                <button class="btn btn-primary btn-lg" data-bs-toggle="button">Saldo</button>
-            </div>
-            <div class="col-md-3">
-                <button class="btn btn-primary btn-lg" data-bs-toggle="button">Deposito</button>
-            </div>
-            <div class="col-md-3">
-                <form action="">
-                    <h2>Retirar</h2>
-                    <input type="text" name="" id="Cant" placeholder="$">
-                </form>
-                    <input type="button" value="Retiro de cuenta" id="bt1" onclick="retiroCta()">        
-            </div>
-        </div>-->
-    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="">
+                        <h2>Retirar</h2>
+                        <input type="text" name="" id="Cant" placeholder="$">
+                    </form>
+                        <input type="button" class="btn btn-primary btn-lg" value="Retiro de cuenta" id="bt1" onclick="retiroCta()">        
+                </div>
+                <div class="col-md-6">
+                    <form action="">
+                        <h2>Depositar</h2>
+                        <input type="text" name="" id="Cant1" placeholder="$">
+                    </form>
+                        <input type="button" class="btn btn-primary btn-lg" value="Deposito a cuenta" id="bt2" onclick="depositoCta()">        
+                </div>
+            </div>    
+    </main>
     <footer>
-        <br><br><hr>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-4">
                 
@@ -108,6 +100,29 @@
                     }else alert("No se puede entregar esa cantidad, debe ser multiplo de $20.00");
                 }else alert('sobre pasa la cantidad maxima a retirar')    
             }else alert('Quieres retirar mas dinero de lo que tienes en tu cuanta')
+            
+                
+        }
+        function depositoCta(){       
+            var userdata=localStorage.getItem("userdata");     
+            var datos = JSON.parse(userdata);
+            //cantidad a retirar
+            var control = parseInt(document.getElementById('Cant1').value);
+            //saldo de la cuenta
+            var cantidad=datos.saldo;
+            //al retirar debe tener un saldo minimo de 10
+            var control2 = cantidad + control;
+            var cantidadTotal=parseInt(document.getElementById('Cant1').value);         
+            /* Tres condiciones para retirar, primero no debe pasar de 9,000 y segundo debe ser multiplo de $100, el retiro no debe ser superior al saldo */
+            if(control<=cantidad){
+                if (control2 >= 10){
+                    if ( (control%20) == 0 ){               
+                        document.getElementById('saldo').value=(cantidad-cantidadTotal);
+                        var str1 = 'Tu saldo es ' + (datos.saldo+control);
+                        document.getElementById('saldo').innerHTML=str1;
+                    }else alert("No se puede entregar esa cantidad, debe ser multiplo de $20.00");
+                }else alert('sobre pasa la cantidad maxima a depositar')    
+            }else alert('Quieres depositar mas dinero de lo que se puede tener en tu cuenta')
             
                 
         }
