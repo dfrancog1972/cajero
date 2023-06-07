@@ -80,6 +80,10 @@
             document.getElementById('saldo').innerHTML=str1;
             document.getElementById('retiro').innerHTML=str2;
         })()   
+        //funciond e retiro de dinero a la cuenta
+        //la variable de control se asigna la cantiodad  a retirar
+        //la variable cantidaad es para almacenar el saldo
+        //La variable control2 es para controlar la cantidad maxima a retirar 
         function retiroCta(){       
             var userdata=localStorage.getItem("userdata");     
             var datos = JSON.parse(userdata);
@@ -90,12 +94,13 @@
             //al retirar debe tener un saldo minimo de 10
             var control2 = cantidad - control;
             var cantidadTotal=parseInt(document.getElementById('Cant').value);         
-            /* Tres condiciones para retirar, primero no debe pasar de 9,000 y segundo debe ser multiplo de $100, el retiro no debe ser superior al saldo */
+            /* Tres condiciones para retirar, primero no debe pasar del saldo de la cuenta menos 10 y segundo debe ser multiplo de $20 */
             if(control<=cantidad){
                 if (control2 >= 10){
                     if ( (control%20) == 0 ){               
                         document.getElementById('saldo').value=(cantidad-cantidadTotal);
                         var str1 = 'Tu saldo es ' + (datos.saldo-control);
+                        datos.saldo=datos.saldo-control;
                         document.getElementById('saldo').innerHTML=str1;
                     }else alert("No se puede entregar esa cantidad, debe ser multiplo de $20.00");
                 }else alert('sobre pasa la cantidad maxima a retirar')    
@@ -103,6 +108,11 @@
             
                 
         }
+        //funcion de deposito de dinero a la cuenta
+        //la variable de control se asigna la cantiodad  a depositar
+        //la variable cantidaad es para almacenar el saldo
+        //La variable control2 es para controlar la cantidad maxima a depositar que es 900 
+        
         function depositoCta(){       
             var userdata=localStorage.getItem("userdata");     
             var datos = JSON.parse(userdata);
@@ -119,6 +129,7 @@
                     if ( (control%20) == 0 ){               
                         document.getElementById('saldo').value=(cantidad-cantidadTotal);
                         var str1 = 'Tu saldo es ' + (datos.saldo+control);
+                        
                         document.getElementById('saldo').innerHTML=str1;
                     }else alert("No se puede entregar esa cantidad, debe ser multiplo de $20.00");
                 }else alert('sobre pasa la cantidad maxima a depositar')    
@@ -126,6 +137,7 @@
             
                 
         }
+        //limpia el localstorage y regresa a la pantalla principal
         function limpia(){
             localStorage.clear();
             location="index.html";
