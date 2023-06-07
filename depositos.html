@@ -23,11 +23,22 @@
             </div>
             <br><br><br><br>
             <div class="row">
-                <div class="col-md-6">
-                    <a class="btn btn-primary btn-lg" type="button" data-toggle="collapse" href="retiros.html">Retiros en efectivo</a>                  
+                <div class="col-xs-12 col-sm-12 col-md-4">              
+                    <h3 id="saldo"></h3>
                 </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                    <h3 id="deposito"></h3>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    
+                </div>
+            </div>
                 <div class="col-md-6">
-                    <a class="btn btn-primary btn-lg" type="button" data-toggle="collapse" href="depositos.html">Depositos en efectivo</a>                  
+                    <form action="">
+                        <h2>Depositar</h2>
+                        <input type="text" name="" id="Cant1" placeholder="$">
+                    </form>
+                        <input type="button" class="btn btn-primary btn-lg" value="Deposito a cuenta" id="bt2" onclick="depositoCta()">        
                 </div>
             </div>    
     </main>
@@ -56,39 +67,15 @@
             var datos = JSON.parse(userdata);
             var str = 'Hola ' + datos.nombre + ' bienvenido, que operacion quieres realizar';
             var str1 = 'Tu saldo es ' + datos.saldo;
-            var str2 = 'Puedes retirar hasta: ' + (datos.saldo-10);
+            var str2 = 'Puedes depositar hasta: ' + (900-datos.saldo);
             document.getElementById('test').innerHTML=str;
             document.getElementById('saldo').innerHTML=str1;
-            document.getElementById('retiro').innerHTML=str2;
+            document.getElementById('deposito').innerHTML=str2;
         })()   
         //funciond e retiro de dinero a la cuenta
         //la variable de control se asigna la cantiodad  a retirar
         //la variable cantidaad es para almacenar el saldo
         //La variable control2 es para controlar la cantidad maxima a retirar 
-        function retiroCta(){       
-            var userdata=localStorage.getItem("userdata");     
-            var datos = JSON.parse(userdata);
-            //cantidad a retirar
-            var control = parseInt(document.getElementById('Cant').value);
-            //saldo de la cuenta
-            var cantidad=datos.saldo;
-            //al retirar debe tener un saldo minimo de 10
-            var control2 = cantidad - control;
-            var cantidadTotal=parseInt(document.getElementById('Cant').value);         
-            /* Tres condiciones para retirar, primero no debe pasar del saldo de la cuenta menos 10 y segundo debe ser multiplo de $20 */
-            if(control<=cantidad){
-                if (control2 >= 10){
-                    if ( (control%20) == 0 ){               
-                        document.getElementById('saldo').value=(cantidad-cantidadTotal);
-                        var str1 = 'Tu saldo es ' + (datos.saldo-control);
-                        datos.saldo=datos.saldo-control;
-                        document.getElementById('saldo').innerHTML=str1;
-                    }else alert("No se puede entregar esa cantidad, debe ser multiplo de $20.00");
-                }else alert('sobre pasa la cantidad maxima a retirar')    
-            }else alert('Quieres retirar mas dinero de lo que tienes en tu cuanta')
-            
-                
-        }
         //funcion de deposito de dinero a la cuenta
         //la variable de control se asigna la cantiodad  a depositar
         //la variable cantidaad es para almacenar el saldo
@@ -105,7 +92,7 @@
             var control2 = cantidad + control;
             var cantidadTotal=parseInt(document.getElementById('Cant1').value);         
             /* Tres condiciones para retirar, primero no debe pasar de 9,000 y segundo debe ser multiplo de $100, el retiro no debe ser superior al saldo */
-            if(control<=cantidad){
+            if(cantidad+control > 899){
                 if (control2 >= 10){
                     if ( (control%20) == 0 ){               
                         document.getElementById('saldo').value=(cantidad-cantidadTotal);
